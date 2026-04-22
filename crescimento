@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grupo Alta — Crescimento de Médicos</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0a1628;
+    --navy-mid: #122040;
+    --navy-light: #1a2e55;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --gold-pale: #f5e9cc;
+    --white: #ffffff;
+    --off-white: #f8f6f1;
+    --muted: rgba(255,255,255,0.45);
+    --subtle: rgba(255,255,255,0.12);
+    --line: rgba(255,255,255,0.08);
+  }
+
+  body {
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, var(--navy-mid) 0%, var(--navy) 100%);
+    border-bottom: 1px solid var(--line);
+    padding: 2.5rem 3rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .brand-mark {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: var(--navy);
+    font-weight: 400;
+    flex-shrink: 0;
+  }
+
+  .brand-text h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.65rem;
+    font-weight: 400;
+    color: var(--white);
+    letter-spacing: 0.01em;
+    line-height: 1.2;
+  }
+
+  .brand-text p {
+    font-size: 0.78rem;
+    color: var(--gold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-top: 3px;
+    font-weight: 500;
+  }
+
+  .report-meta {
+    text-align: right;
+  }
+
+  .report-meta .date-label {
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .report-meta .date-val {
+    font-size: 0.9rem;
+    color: var(--gold-light);
+    font-weight: 500;
+    margin-top: 2px;
+  }
+
+  /* MAIN */
+  main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2.5rem 3rem 4rem;
+  }
+
+  /* KPI CARDS */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 2.5rem;
+  }
+
+  .kpi-card {
+    background: var(--navy-light);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 1.4rem 1.6rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .kpi-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 3px;
+    background: linear-gradient(90deg, var(--gold) 0%, transparent 80%);
+  }
+
+  .kpi-label {
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 6px;
+  }
+
+  .kpi-value {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.4rem;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .kpi-sub {
+    font-size: 0.75rem;
+    color: var(--gold);
+    margin-top: 6px;
+    font-weight: 500;
+  }
+
+  /* CHART SECTION */
+  .chart-section {
+    background: var(--navy-light);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 2rem 2rem 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .chart-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .chart-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--white);
+  }
+
+  .chart-subtitle {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .legend {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  .legend-line {
+    width: 22px; height: 3px;
+    background: #378ADD;
+    border-radius: 2px;
+  }
+
+  .legend-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 2px solid var(--gold-light);
+    flex-shrink: 0;
+  }
+
+  /* FILTERS */
+  .filters {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+  }
+
+  .filter-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    padding: 5px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: transparent;
+    color: var(--muted);
+    transition: all 0.2s ease;
+    letter-spacing: 0.03em;
+  }
+
+  .filter-btn:hover {
+    border-color: var(--gold);
+    color: var(--gold-light);
+  }
+
+  .filter-btn.active {
+    background: rgba(201,168,76,0.15);
+    border-color: var(--gold);
+    color: var(--gold-light);
+    font-weight: 500;
+  }
+
+  .chart-wrap {
+    position: relative;
+    width: 100%;
+    height: 380px;
+  }
+
+  /* TOOLTIP */
+  #tooltip {
+    display: none;
+    position: absolute;
+    background: var(--navy-mid);
+    border: 1px solid rgba(201,168,76,0.35);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 12px;
+    max-width: 260px;
+    pointer-events: none;
+    z-index: 100;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    transform: translateY(-50%);
+  }
+
+  #tooltip .t-date {
+    font-size: 11px;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+
+  #tooltip .t-name {
+    color: rgba(255,255,255,0.85);
+    margin: 2px 0;
+    line-height: 1.4;
+  }
+
+  #tooltip .t-count {
+    margin-top: 7px;
+    padding-top: 7px;
+    border-top: 1px solid var(--line);
+    color: var(--white);
+    font-weight: 600;
+    font-size: 13px;
+  }
+
+  /* CONTRACTS TABLE */
+  .contracts-section {
+    background: var(--navy-light);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 2rem;
+  }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.15rem;
+    font-weight: 400;
+    margin-bottom: 1.25rem;
+    color: var(--white);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+  }
+
+  thead th {
+    text-align: left;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    padding: 0 12px 10px;
+    border-bottom: 1px solid var(--line);
+    font-weight: 500;
+  }
+
+  tbody tr {
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    transition: background 0.15s;
+  }
+
+  tbody tr:hover { background: rgba(255,255,255,0.03); }
+
+  tbody td {
+    padding: 9px 12px;
+    color: rgba(255,255,255,0.75);
+    vertical-align: middle;
+  }
+
+  .td-date {
+    color: var(--gold);
+    font-weight: 500;
+    white-space: nowrap;
+    font-size: 0.78rem;
+  }
+
+  .td-name { color: var(--white); }
+
+  .badge {
+    display: inline-block;
+    font-size: 0.68rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .badge-seconci { background: rgba(55,138,221,0.18); color: #85B7EB; }
+  .badge-spdm    { background: rgba(29,158,117,0.18); color: #5DCAA5; }
+  .badge-smarcel { background: rgba(212,83,126,0.18); color: #ED93B1; }
+  .badge-outros  { background: rgba(201,168,76,0.15); color: var(--gold-light); }
+
+  .td-count {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    color: rgba(255,255,255,0.5);
+    font-size: 0.78rem;
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 1.5rem 3rem 2.5rem;
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 0.05em;
+  }
+
+  @media (max-width: 700px) {
+    main, header { padding: 1.5rem 1.25rem; }
+    .kpi-grid { grid-template-columns: 1fr 1fr; }
+    .header-inner { flex-direction: column; align-items: flex-start; }
+    .report-meta { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-mark">GA</div>
+      <div class="brand-text">
+        <h1>Grupo Alta</h1>
+        <p>Relatório de Crescimento</p>
+      </div>
+    </div>
+    <div class="report-meta">
+      <div class="date-label">Data de referência</div>
+      <div class="date-val">Abril de 2026</div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">Médicos cadastrados</div>
+      <div class="kpi-value">9.621</div>
+      <div class="kpi-sub">desde nov/2020</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Contratos firmados</div>
+      <div class="kpi-value">46</div>
+      <div class="kpi-sub">com 8 parceiros</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Período de crescimento</div>
+      <div class="kpi-value">5,5</div>
+      <div class="kpi-sub">anos de operação</div>
+    </div>
+  </div>
+
+  <div class="chart-section">
+    <div class="chart-header">
+      <div>
+        <div class="chart-title">Evolução cumulativa de médicos</div>
+        <div class="chart-subtitle">Médicos incluídos mês a mês · pontos indicam início de contrato</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0;">
+        <div class="legend-item"><span class="legend-line"></span> médicos acumulados</div>
+        <div class="legend-item"><span style="width:10px;height:10px;border-radius:50%;background:#c9a84c;border:2px solid #e8c97a;display:inline-block;flex-shrink:0;"></span> novo contrato</div>
+      </div>
+    </div>
+
+    <div class="filters" id="filters"></div>
+
+    <div class="chart-wrap">
+      <canvas id="mainChart"></canvas>
+      <div id="tooltip">
+        <div class="t-date" id="tt-date"></div>
+        <div id="tt-names"></div>
+        <div class="t-count" id="tt-count"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="contracts-section">
+    <div class="section-title">Histórico de contratos</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Início</th>
+          <th>Contrato</th>
+          <th>Grupo</th>
+          <th style="text-align:right">Médicos</th>
+        </tr>
+      </thead>
+      <tbody id="contractTableBody"></tbody>
+    </table>
+  </div>
+
+</main>
+
+<footer>Grupo Alta · Documento confidencial · Gerado em abril de 2026</footer>
+
+<script>
+const monthlyData = [{"date":"2020-11","cum":48},{"date":"2020-12","cum":122},{"date":"2021-01","cum":194},{"date":"2021-02","cum":219},{"date":"2021-03","cum":310},{"date":"2021-04","cum":554},{"date":"2021-05","cum":833},{"date":"2021-06","cum":965},{"date":"2021-07","cum":1093},{"date":"2021-08","cum":1205},{"date":"2021-09","cum":1285},{"date":"2021-10","cum":1379},{"date":"2021-11","cum":1504},{"date":"2021-12","cum":1653},{"date":"2022-01","cum":1839},{"date":"2022-02","cum":1977},{"date":"2022-03","cum":2151},{"date":"2022-04","cum":2246},{"date":"2022-05","cum":2357},{"date":"2022-06","cum":2513},{"date":"2022-07","cum":2768},{"date":"2022-08","cum":2921},{"date":"2022-09","cum":3035},{"date":"2022-10","cum":3109},{"date":"2022-11","cum":3274},{"date":"2022-12","cum":3613},{"date":"2023-01","cum":3876},{"date":"2023-02","cum":4047},{"date":"2023-03","cum":4196},{"date":"2023-04","cum":4282},{"date":"2023-05","cum":4350},{"date":"2023-06","cum":4426},{"date":"2023-07","cum":4511},{"date":"2023-08","cum":4611},{"date":"2023-09","cum":4674},{"date":"2023-10","cum":4738},{"date":"2023-11","cum":4820},{"date":"2023-12","cum":4958},{"date":"2024-01","cum":5065},{"date":"2024-02","cum":5160},{"date":"2024-03","cum":5554},{"date":"2024-04","cum":5740},{"date":"2024-05","cum":5869},{"date":"2024-06","cum":6013},{"date":"2024-07","cum":6227},{"date":"2024-08","cum":6385},{"date":"2024-09","cum":6472},{"date":"2024-10","cum":6566},{"date":"2024-11","cum":6710},{"date":"2024-12","cum":6902},{"date":"2025-01","cum":7210},{"date":"2025-02","cum":7463},{"date":"2025-03","cum":7700},{"date":"2025-04","cum":7887},{"date":"2025-05","cum":8012},{"date":"2025-06","cum":8130},{"date":"2025-07","cum":8311},{"date":"2025-08","cum":8419},{"date":"2025-09","cum":8589},{"date":"2025-10","cum":8729},{"date":"2025-11","cum":8831},{"date":"2025-12","cum":9040},{"date":"2026-01","cum":9197},{"date":"2026-02","cum":9360},{"date":"2026-03","cum":9547},{"date":"2026-04","cum":9621}];
+
+const allContracts = [
+  {"date":"2020-12","name":"SAS SECONCI - HOSP BENEDICTO - CIRURGIA","cumulative":76},
+  {"date":"2020-12","name":"SAS SECONCI - HOSP BENEDICTO - PEDIATRIA","cumulative":76},
+  {"date":"2020-12","name":"SAS SECONCI - HOSP BENEDICTO PSIQUIATRIA","cumulative":76},
+  {"date":"2021-08","name":"SAS SECONCI - UPA ERMELINO - CLÍNICA MÉDICA","cumulative":1097},
+  {"date":"2021-10","name":"SPDM PAIS - UPA CITY","cumulative":1312},
+  {"date":"2021-11","name":"SAS SECONCI - UPA ERMELINO - PEDIATRIA","cumulative":1419},
+  {"date":"2022-01","name":"SPDM AFILIADAS - PRECEPTORIA","cumulative":1656},
+  {"date":"2022-01","name":"SANTA MARCELINA - RAST 10 - 11","cumulative":1786},
+  {"date":"2022-02","name":"MONTE AZUL - AMAS/UBS","cumulative":1849},
+  {"date":"2022-03","name":"SPDM PAIS - UPA PERUS","cumulative":2131},
+  {"date":"2022-07","name":"SPDM PAIS - DIADEMA","cumulative":2643},
+  {"date":"2022-09","name":"SPDM AFILIADAS - PARELHEIROS","cumulative":2993},
+  {"date":"2022-10","name":"SPDM AFILIADAS - CANTAREIRA - VILA MARIA - GUILHERME","cumulative":3035},
+  {"date":"2022-11","name":"SPDM PAIS - NORTE","cumulative":3250},
+  {"date":"2023-03","name":"SPDM AFILIADAS - CANTAREIRA","cumulative":4118},
+  {"date":"2023-04","name":"SANTA MARCELINA - RAST 10 - 11","cumulative":4197},
+  {"date":"2023-06","name":"PRÓ-PM","cumulative":4373},
+  {"date":"2023-07","name":"SPDM AFILIADAS - HRAT HOSPITAL REGIONAL ALTO TIETE","cumulative":4427},
+  {"date":"2024-02","name":"SPDM AFILIADAS - HOSPITAL ESTADUAL DE DIADEMA","cumulative":5142},
+  {"date":"2024-03","name":"SECONCI - HOSPITAL DA MULHER","cumulative":5170},
+  {"date":"2024-03","name":"SAS SECONCI - HOSP BENEDICTO PSIQUIATRIA","cumulative":5203},
+  {"date":"2024-04","name":"SECONCI - HESAP HOSP ESTADUAL DE SAPOPEMBA - CIRURGIA","cumulative":5565},
+  {"date":"2024-04","name":"SPDM AFILIADAS - ZONA NORTE VILA MARIA - GUILHERME","cumulative":5645},
+  {"date":"2024-05","name":"SAS SECONCI - HOSP BENEDICTO - PEDIATRIA","cumulative":5780},
+  {"date":"2024-05","name":"SAS SECONCI - UPA ERMELINO - ORTOPEDIA","cumulative":5780},
+  {"date":"2024-05","name":"SPDM AFILIADAS - ZONA OESTE - BUTANTÃ","cumulative":5831},
+  {"date":"2024-05","name":"SPDM PAIS - DIADEMA","cumulative":5855},
+  {"date":"2024-05","name":"SECONCI - HOSPITAL DA MULHER","cumulative":5864},
+  {"date":"2024-06","name":"SAS SECONCI - HOSP BENEDICTO - CIRURGIA","cumulative":5901},
+  {"date":"2024-06","name":"SPDM AFILIADAS - HOSP. DE CLÍNICAS LUZIA PINHO DE MELO - EMERGÊNCIA","cumulative":5933},
+  {"date":"2024-08","name":"SAS SECONCI - UPA ERMELINO - CLÍNICA MÉDICA","cumulative":6249},
+  {"date":"2024-08","name":"MONTE AZUL - AMA PARQUE FIGUEIRA GRANDE","cumulative":6324},
+  {"date":"2024-09","name":"SPDM AFILIADAS - ZONA NORTE VILA MARIA - GUILHERME","cumulative":6468},
+  {"date":"2024-11","name":"SPDM AFILIADAS - PARELHEIROS","cumulative":6671},
+  {"date":"2025-01","name":"SPDM AFILIADAS - ZONA OESTE - BUTANTÃ","cumulative":7103},
+  {"date":"2025-01","name":"HAPVIDA - HOSPITAL SÃO BERNARDO","cumulative":6979},
+  {"date":"2025-03","name":"SANTA MARCELINA - HOSPITAL GERAL SANTA MARCELINA DO ITAIM PAULISTA","cumulative":7700},
+  {"date":"2025-05","name":"SPDM AFILIADAS - HOSP GERAL PIRAJUSSARA - EMERGÊNCIA","cumulative":7957},
+  {"date":"2025-06","name":"SANTA MARCELINA - HOSPITAL CIDADE TIRADENTES","cumulative":8047},
+  {"date":"2025-09","name":"SANTA MARCELINA - ITAQUAQUECETUBA MEDICINA DO TRABALHO","cumulative":8481},
+  {"date":"2025-10","name":"SPDM AFILIADAS - HOSP. DE CLÍNICAS LUZIA PINHO DE MELO - PSIQUIATRIA","cumulative":8661},
+  {"date":"2025-12","name":"SPDM AFILIADAS - HOSPITAL GERAL DE GUARULHOS - PRONTO SOCORRO","cumulative":8946},
+  {"date":"2025-12","name":"SPDM AFILIADAS - HOSPITAL GERAL DE GUARULHOS - ENFERMARIA","cumulative":8946},
+  {"date":"2026-02","name":"SANTA MARCELINA - HOSPITAL GERAL DE GUAIANASES MEDICINA DO TRABALHO","cumulative":9227},
+  {"date":"2026-04","name":"SPDM AFILIADAS - HRAT HOSPITAL REGIONAL ALTO TIETE","cumulative":9600}
+];
+
+const GROUPS = [
+  { key: 'SAS SECONCI',     label: 'SAS SECONCI',     color: '#378ADD', border: '#185FA5' },
+  { key: 'SPDM AFILIADAS',  label: 'SPDM Afiliadas',  color: '#1D9E75', border: '#0F6E56' },
+  { key: 'SANTA MARCELINA', label: 'Santa Marcelina', color: '#D4537E', border: '#993556' },
+  { key: 'MONTE AZUL',      label: 'Monte Azul',       color: '#7F77DD', border: '#534AB7' },
+  { key: 'SPDM PAIS',       label: 'SPDM Pais',        color: '#5DCAA5', border: '#1D9E75' },
+  { key: 'PRO PM',          label: 'Pró-PM',           color: '#EF9F27', border: '#BA7517' },
+  { key: 'SECONCI',         label: 'SECONCI',          color: '#F09595', border: '#E24B4A' },
+  { key: 'HAPVIDA',         label: 'HAPVIDA',          color: '#97C459', border: '#639922' },
+];
+
+function getGroupKey(name) {
+  const n = name.toUpperCase();
+  if (n.startsWith('SAS SECONCI')) return 'SAS SECONCI';
+  if (n.startsWith('SPDM AFILIADAS')) return 'SPDM AFILIADAS';
+  if (n.startsWith('SANTA MARCELINA')) return 'SANTA MARCELINA';
+  if (n.startsWith('MONTE AZUL')) return 'MONTE AZUL';
+  if (n.startsWith('SPDM PAIS')) return 'SPDM PAIS';
+  if (n.startsWith('PRÓ-PM') || n.startsWith('PRÓ PM') || n.startsWith('PRO-PM')) return 'PRO PM';
+  if (n.startsWith('SECONCI')) return 'SECONCI';
+  if (n.startsWith('HAPVIDA')) return 'HAPVIDA';
+  return null;
+}
+
+function getGroup(name) { return getGroupKey(name) || 'outros'; }
+
+function getBadge(name) {
+  const gk = getGroupKey(name);
+  const g = GROUPS.find(x => x.key === gk);
+  if (!g) return '<span class="badge badge-outros">Outros</span>';
+  return `<span class="badge" style="background:${g.color}22;color:${g.color};">${g.label}</span>`;
+}
+
+function formatDate(d) {
+  const [y,m] = d.split('-');
+  const months = ['','jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+  return months[parseInt(m)] + '/' + y;
+}
+
+// Build table
+const tbody = document.getElementById('contractTableBody');
+const sorted = [...allContracts].sort((a,b) => a.date.localeCompare(b.date));
+sorted.forEach(c => {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td class="td-date">${formatDate(c.date)}</td>
+    <td class="td-name">${c.name}</td>
+    <td>${getBadge(c.name)}</td>
+    <td class="td-count">${c.cumulative.toLocaleString('pt-BR')}</td>
+  `;
+  tbody.appendChild(tr);
+});
+
+const labels = monthlyData.map(d => d.date);
+
+function buildContractMap(filter) {
+  const map = {};
+  allContracts.forEach(c => {
+    const gk = getGroupKey(c.name);
+    if (!gk) return;
+    if (filter !== 'all' && gk !== filter) return;
+    const g = GROUPS.find(x => x.key === gk);
+    if (!map[c.date]) map[c.date] = [];
+    map[c.date].push({ name: c.name, color: g.color, border: g.border, group: gk });
+  });
+  return map;
+}
+
+function buildLineData(filter) {
+  const cmap = buildContractMap(filter);
+  return monthlyData.map(d => {
+    const entries = cmap[d.date];
+    return {
+      y: d.cum, isContract: !!entries,
+      entries: entries || [], date: d.date,
+      color: entries ? entries[0].color : null,
+      border: entries ? entries[0].border : null
+    };
+  });
+}
+
+function buildLegend(filter) {}
+
+let chart, lineData;
+
+function buildChart(filter) {
+  if (chart) chart.destroy();
+  lineData = buildLineData(filter);
+
+  chart = new Chart(document.getElementById('mainChart'), {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [{
+        label: 'médicos acumulados',
+        data: lineData.map(d => d.y),
+        borderColor: '#378ADD',
+        backgroundColor: 'rgba(55,138,221,0.08)',
+        borderWidth: 2.5,
+        fill: true,
+        tension: 0.38,
+        pointRadius: lineData.map(d => d.isContract ? 7 : 0),
+        pointHoverRadius: lineData.map(d => d.isContract ? 10 : 0),
+        pointBackgroundColor: lineData.map(d => d.isContract ? '#c9a84c' : 'transparent'),
+        pointBorderColor: lineData.map(d => d.isContract ? '#e8c97a' : 'transparent'),
+        pointBorderWidth: lineData.map(d => d.isContract ? 2 : 0),
+        order: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      layout: { padding: { top: 8, right: 8 } },
+      interaction: { mode: 'nearest', intersect: true },
+      plugins: { legend: { display: false }, tooltip: { enabled: false } },
+      onHover: function(evt, elements) {
+        const tip = document.getElementById('tooltip');
+        if (!elements || elements.length === 0) { tip.style.display = 'none'; return; }
+        const idx = elements[0].index;
+        const pt = lineData[idx];
+        if (!pt || !pt.isContract) { tip.style.display = 'none'; return; }
+        const meta = chart.getDatasetMeta(0);
+        const point = meta.data[idx];
+        const dotX = point.x;
+        const dotY = point.y;
+        document.getElementById('tt-date').textContent = formatDate(pt.date);
+        document.getElementById('tt-names').innerHTML = pt.entries.map(e =>
+          `<div class="t-name" style="display:flex;align-items:center;gap:6px;">
+            <span style="width:8px;height:8px;border-radius:50%;background:${e.color};flex-shrink:0;"></span>
+            ${e.name}
+          </div>`
+        ).join('');
+        document.getElementById('tt-count').textContent = pt.y.toLocaleString('pt-BR') + ' médicos cadastrados';
+        tip.style.display = 'block';
+        const wrap = document.querySelector('.chart-wrap');
+        const wrapW = wrap.offsetWidth;
+        const ttW = tip.offsetWidth || 260;
+        let left = dotX + 14;
+        if (left + ttW > wrapW - 8) left = dotX - ttW - 14;
+        if (left < 4) left = 4;
+        tip.style.left = left + 'px';
+        tip.style.top  = dotY + 'px';
+      },
+      scales: {
+        x: {
+          ticks: {
+            color: 'rgba(255,255,255,0.35)',
+            font: { size: 12, family: 'DM Sans' },
+            autoSkip: false, maxRotation: 0,
+            callback: function(val, idx) {
+              const d = labels[idx]; if (!d) return '';
+              const [y,m] = d.split('-');
+              if (d === '2020-11') return '2020';
+              if (m === '01') return y;
+              return '';
+            }
+          },
+          grid: { color: 'rgba(255,255,255,0.05)' },
+          border: { color: 'rgba(255,255,255,0.1)' }
+        },
+        y: {
+          min: 0, max: 10000,
+          ticks: {
+            color: 'rgba(255,255,255,0.35)',
+            font: { size: 12, family: 'DM Sans' },
+            stepSize: 1000,
+            callback: v => v === 0 ? '0' : (v/1000)+'k'
+          },
+          grid: { color: 'rgba(255,255,255,0.05)' },
+          border: { color: 'rgba(255,255,255,0.1)' }
+        }
+      }
+    }
+  });
+}
+
+const filtersEl = document.getElementById('filters');
+
+function setFilter(key, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => {
+    b.style.background = 'transparent';
+    b.style.borderColor = 'rgba(255,255,255,0.15)';
+    b.style.color = 'rgba(255,255,255,0.45)';
+    b.style.fontWeight = '400';
+  });
+  btn.style.background = 'rgba(201,168,76,0.18)';
+  btn.style.borderColor = '#c9a84c';
+  btn.style.color = '#e8c97a';
+  btn.style.fontWeight = '500';
+  buildLegend(key);
+  buildChart(key);
+}
+
+const makeBtn = (key, label) => {
+  const b = document.createElement('button');
+  b.className = 'filter-btn';
+  b.textContent = label;
+  b.style.borderColor = 'rgba(255,255,255,0.15)';
+  b.style.color = 'rgba(255,255,255,0.45)';
+  b.onclick = () => setFilter(key, b);
+  return b;
+};
+
+const allBtn = makeBtn('all', 'todos');
+setFilter('all', allBtn);
+filtersEl.appendChild(allBtn);
+
+buildLegend('all');
+
+GROUPS.forEach(g => filtersEl.appendChild(makeBtn(g.key, g.label)));
+
+document.getElementById('mainChart').addEventListener('mouseleave', () => {
+  document.getElementById('tooltip').style.display = 'none';
+});
+
+buildChart('all');
+</script>
+</body>
+</html>
