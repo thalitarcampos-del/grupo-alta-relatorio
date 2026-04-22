@@ -270,7 +270,7 @@
   /* TOOLTIP */
   #tooltip {
     display: none;
-    position: fixed;
+    position: absolute;
     background: var(--navy-mid);
     border: 1px solid rgba(201,168,76,0.35);
     border-radius: 10px;
@@ -280,6 +280,7 @@
     pointer-events: none;
     z-index: 100;
     box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    transform: translateY(-50%);
   }
 
   #tooltip .t-date {
@@ -453,6 +454,11 @@
 
     <div class="chart-wrap">
       <canvas id="mainChart"></canvas>
+      <div id="tooltip">
+        <div class="t-date" id="tt-date"></div>
+        <div id="tt-names"></div>
+        <div class="t-count" id="tt-count"></div>
+      </div>
     </div>
   </div>
 
@@ -474,12 +480,6 @@
 </main>
 
 <footer>Grupo Alta · Documento confidencial · Gerado em abril de 2026</footer>
-
-<div id="tooltip">
-  <div class="t-date" id="tt-date"></div>
-  <div id="tt-names"></div>
-  <div class="t-count" id="tt-count"></div>
-</div>
 
 <script>
 const monthlyData = [{"date":"2020-11","cum":48},{"date":"2020-12","cum":122},{"date":"2021-01","cum":194},{"date":"2021-02","cum":219},{"date":"2021-03","cum":310},{"date":"2021-04","cum":554},{"date":"2021-05","cum":833},{"date":"2021-06","cum":965},{"date":"2021-07","cum":1093},{"date":"2021-08","cum":1205},{"date":"2021-09","cum":1285},{"date":"2021-10","cum":1379},{"date":"2021-11","cum":1504},{"date":"2021-12","cum":1653},{"date":"2022-01","cum":1839},{"date":"2022-02","cum":1977},{"date":"2022-03","cum":2151},{"date":"2022-04","cum":2246},{"date":"2022-05","cum":2357},{"date":"2022-06","cum":2513},{"date":"2022-07","cum":2768},{"date":"2022-08","cum":2921},{"date":"2022-09","cum":3035},{"date":"2022-10","cum":3109},{"date":"2022-11","cum":3274},{"date":"2022-12","cum":3613},{"date":"2023-01","cum":3876},{"date":"2023-02","cum":4047},{"date":"2023-03","cum":4196},{"date":"2023-04","cum":4282},{"date":"2023-05","cum":4350},{"date":"2023-06","cum":4426},{"date":"2023-07","cum":4511},{"date":"2023-08","cum":4611},{"date":"2023-09","cum":4674},{"date":"2023-10","cum":4738},{"date":"2023-11","cum":4820},{"date":"2023-12","cum":4958},{"date":"2024-01","cum":5065},{"date":"2024-02","cum":5160},{"date":"2024-03","cum":5554},{"date":"2024-04","cum":5740},{"date":"2024-05","cum":5869},{"date":"2024-06","cum":6013},{"date":"2024-07","cum":6227},{"date":"2024-08","cum":6385},{"date":"2024-09","cum":6472},{"date":"2024-10","cum":6566},{"date":"2024-11","cum":6710},{"date":"2024-12","cum":6902},{"date":"2025-01","cum":7210},{"date":"2025-02","cum":7463},{"date":"2025-03","cum":7700},{"date":"2025-04","cum":7887},{"date":"2025-05","cum":8012},{"date":"2025-06","cum":8130},{"date":"2025-07","cum":8311},{"date":"2025-08","cum":8419},{"date":"2025-09","cum":8589},{"date":"2025-10","cum":8729},{"date":"2025-11","cum":8831},{"date":"2025-12","cum":9040},{"date":"2026-01","cum":9197},{"date":"2026-02","cum":9360},{"date":"2026-03","cum":9547},{"date":"2026-04","cum":9621}];
@@ -655,9 +655,8 @@ function buildChart(filter) {
         if (!pt || !pt.isContract) { tip.style.display = 'none'; return; }
         const meta = chart.getDatasetMeta(0);
         const point = meta.data[idx];
-        const rect = document.getElementById('mainChart').getBoundingClientRect();
-        const dotX = rect.left + point.x;
-        const dotY = rect.top + point.y;
+        const dotX = point.x;
+        const dotY = point.y;
         document.getElementById('tt-date').textContent = formatDate(pt.date);
         document.getElementById('tt-names').innerHTML = pt.entries.map(e =>
           `<div class="t-name" style="display:flex;align-items:center;gap:6px;">
@@ -667,14 +666,14 @@ function buildChart(filter) {
         ).join('');
         document.getElementById('tt-count').textContent = pt.y.toLocaleString('pt-BR') + ' médicos cadastrados';
         tip.style.display = 'block';
+        const wrap = document.querySelector('.chart-wrap');
+        const wrapW = wrap.offsetWidth;
         const ttW = tip.offsetWidth || 260;
-        const ttH = tip.offsetHeight || 100;
         let left = dotX + 14;
-        let top = dotY - ttH / 2 + window.scrollY;
-        if (left + ttW > window.innerWidth - 10) left = dotX - ttW - 14;
-        if (top < 10) top = 10;
+        if (left + ttW > wrapW - 8) left = dotX - ttW - 14;
+        if (left < 4) left = 4;
         tip.style.left = left + 'px';
-        tip.style.top  = top  + 'px';
+        tip.style.top  = dotY + 'px';
       },
       scales: {
         x: {
