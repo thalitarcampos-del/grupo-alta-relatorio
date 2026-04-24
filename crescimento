@@ -423,12 +423,12 @@
   <div class="kpi-grid">
     <div class="kpi-card">
       <div class="kpi-label">Médicos cadastrados</div>
-      <div class="kpi-value">9.621</div>
+      <div class="kpi-value">9.636</div>
       <div class="kpi-sub">desde nov/2020</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Contratos firmados</div>
-      <div class="kpi-value">46</div>
+      <div class="kpi-value">61</div>
       <div class="kpi-sub">com 8 parceiros</div>
     </div>
     <div class="kpi-card">
@@ -482,15 +482,29 @@
 <footer>Grupo Alta · Documento confidencial · Gerado em abril de 2026</footer>
 
 <script>
-const monthlyData = [{"date":"2020-11","cum":48},{"date":"2020-12","cum":122},{"date":"2021-01","cum":194},{"date":"2021-02","cum":219},{"date":"2021-03","cum":310},{"date":"2021-04","cum":554},{"date":"2021-05","cum":833},{"date":"2021-06","cum":965},{"date":"2021-07","cum":1093},{"date":"2021-08","cum":1205},{"date":"2021-09","cum":1285},{"date":"2021-10","cum":1379},{"date":"2021-11","cum":1504},{"date":"2021-12","cum":1653},{"date":"2022-01","cum":1839},{"date":"2022-02","cum":1977},{"date":"2022-03","cum":2151},{"date":"2022-04","cum":2246},{"date":"2022-05","cum":2357},{"date":"2022-06","cum":2513},{"date":"2022-07","cum":2768},{"date":"2022-08","cum":2921},{"date":"2022-09","cum":3035},{"date":"2022-10","cum":3109},{"date":"2022-11","cum":3274},{"date":"2022-12","cum":3613},{"date":"2023-01","cum":3876},{"date":"2023-02","cum":4047},{"date":"2023-03","cum":4196},{"date":"2023-04","cum":4282},{"date":"2023-05","cum":4350},{"date":"2023-06","cum":4426},{"date":"2023-07","cum":4511},{"date":"2023-08","cum":4611},{"date":"2023-09","cum":4674},{"date":"2023-10","cum":4738},{"date":"2023-11","cum":4820},{"date":"2023-12","cum":4958},{"date":"2024-01","cum":5065},{"date":"2024-02","cum":5160},{"date":"2024-03","cum":5554},{"date":"2024-04","cum":5740},{"date":"2024-05","cum":5869},{"date":"2024-06","cum":6013},{"date":"2024-07","cum":6227},{"date":"2024-08","cum":6385},{"date":"2024-09","cum":6472},{"date":"2024-10","cum":6566},{"date":"2024-11","cum":6710},{"date":"2024-12","cum":6902},{"date":"2025-01","cum":7210},{"date":"2025-02","cum":7463},{"date":"2025-03","cum":7700},{"date":"2025-04","cum":7887},{"date":"2025-05","cum":8012},{"date":"2025-06","cum":8130},{"date":"2025-07","cum":8311},{"date":"2025-08","cum":8419},{"date":"2025-09","cum":8589},{"date":"2025-10","cum":8729},{"date":"2025-11","cum":8831},{"date":"2025-12","cum":9040},{"date":"2026-01","cum":9197},{"date":"2026-02","cum":9360},{"date":"2026-03","cum":9547},{"date":"2026-04","cum":9621}];
+const monthlyData = [{"date":"2020-11","cum":48},{"date":"2020-12","cum":122},{"date":"2021-01","cum":194},{"date":"2021-02","cum":219},{"date":"2021-03","cum":310},{"date":"2021-04","cum":554},{"date":"2021-05","cum":833},{"date":"2021-06","cum":965},{"date":"2021-07","cum":1093},{"date":"2021-08","cum":1205},{"date":"2021-09","cum":1285},{"date":"2021-10","cum":1379},{"date":"2021-11","cum":1504},{"date":"2021-12","cum":1653},{"date":"2022-01","cum":1839},{"date":"2022-02","cum":1977},{"date":"2022-03","cum":2151},{"date":"2022-04","cum":2246},{"date":"2022-05","cum":2357},{"date":"2022-06","cum":2513},{"date":"2022-07","cum":2768},{"date":"2022-08","cum":2921},{"date":"2022-09","cum":3035},{"date":"2022-10","cum":3109},{"date":"2022-11","cum":3274},{"date":"2022-12","cum":3613},{"date":"2023-01","cum":3876},{"date":"2023-02","cum":4047},{"date":"2023-03","cum":4196},{"date":"2023-04","cum":4283},{"date":"2023-05","cum":4351},{"date":"2023-06","cum":4427},{"date":"2023-07","cum":4512},{"date":"2023-08","cum":4612},{"date":"2023-09","cum":4675},{"date":"2023-10","cum":4739},{"date":"2023-11","cum":4821},{"date":"2023-12","cum":4959},{"date":"2024-01","cum":5066},{"date":"2024-02","cum":5161},{"date":"2024-03","cum":5555},{"date":"2024-04","cum":5741},{"date":"2024-05","cum":5870},{"date":"2024-06","cum":6014},{"date":"2024-07","cum":6228},{"date":"2024-08","cum":6386},{"date":"2024-09","cum":6473},{"date":"2024-10","cum":6567},{"date":"2024-11","cum":6711},{"date":"2024-12","cum":6903},{"date":"2025-01","cum":7211},{"date":"2025-02","cum":7464},{"date":"2025-03","cum":7701},{"date":"2025-04","cum":7888},{"date":"2025-05","cum":8013},{"date":"2025-06","cum":8131},{"date":"2025-07","cum":8312},{"date":"2025-08","cum":8420},{"date":"2025-09","cum":8590},{"date":"2025-10","cum":8730},{"date":"2025-11","cum":8832},{"date":"2025-12","cum":9041},{"date":"2026-01","cum":9198},{"date":"2026-02","cum":9361},{"date":"2026-03","cum":9549},{"date":"2026-04","cum":9636}];
 
 const allContracts = [
   {"date":"2020-12","name":"SAS SECONCI - HOSP BENEDICTO - CIRURGIA","cumulative":76},
   {"date":"2020-12","name":"SAS SECONCI - HOSP BENEDICTO - PEDIATRIA","cumulative":76},
   {"date":"2020-12","name":"SAS SECONCI - HOSP BENEDICTO PSIQUIATRIA","cumulative":76},
+  {"date":"2021-01","name":"SAS SECONCI - AMA DR. IGNÁCIO PROENÇA DE GOUVÊA - PEDIATRIA","cumulative":175},
+  {"date":"2021-01","name":"SAS SECONCI - AMA DR. IGNÁCIO PROENÇA DE GOUVÊA - PRONTO SOCORRO","cumulative":175},
+  {"date":"2021-01","name":"SAS SECONCI - AMA DR. IGNÁCIO PROENÇA DE GOUVÊA - ENFERMARIA","cumulative":175},
+  {"date":"2021-03","name":"SPDM AFILIADAS - CANTAREIRA - VILA MARIA - GUILHERME","cumulative":241},
+  {"date":"2021-04","name":"SPDM AFILIADAS - HOSPITAL PROFESSORA LYDIA STORÓPOLI - UNINOVE","cumulative":407},
+  {"date":"2021-04","name":"SPDM AFILIADAS - HOSPITAL GERAL DE GUARULHOS - COVID","cumulative":495},
+  {"date":"2021-05","name":"SPDM PAIS - UPA TATUAPÉ","cumulative":571},
+  {"date":"2021-05","name":"SPDM PAIS - ATENÇÃO HOSPITALAR WALDOMIRO DE PAULA / TIDE SETUBAL / ALEXANDRE ZAIO / ARTHUR SABOYA","cumulative":642},
   {"date":"2021-08","name":"SAS SECONCI - UPA ERMELINO - CLÍNICA MÉDICA","cumulative":1097},
   {"date":"2021-10","name":"SPDM PAIS - UPA CITY","cumulative":1312},
   {"date":"2021-11","name":"SAS SECONCI - UPA ERMELINO - PEDIATRIA","cumulative":1419},
+  {"date":"2021-12","name":"SPDM PAIS - PERUS / PIRITUBA","cumulative":1641},
+  {"date":"2021-12","name":"SPDM PAIS - SAPOPEMBA / ARICANDUVA","cumulative":1641},
+  {"date":"2021-12","name":"SPDM PAIS - IPIRANGA / VL MARIANA / JABAQUARA","cumulative":1641},
+  {"date":"2021-12","name":"SPDM PAIS - HOSPITAL AMPARO MATERNAL","cumulative":1641},
+  {"date":"2021-12","name":"SPDM PAIS - MOOCA / BRAS / PARI / BELÉM","cumulative":1641},
+  {"date":"2021-12","name":"SPDM PAIS - VILA PRUDENTE / SÃO LUCAS","cumulative":1641},
   {"date":"2022-01","name":"SPDM AFILIADAS - PRECEPTORIA","cumulative":1656},
   {"date":"2022-01","name":"SANTA MARCELINA - RAST 10 - 11","cumulative":1786},
   {"date":"2022-02","name":"MONTE AZUL - AMAS/UBS","cumulative":1849},
@@ -500,36 +514,37 @@ const allContracts = [
   {"date":"2022-10","name":"SPDM AFILIADAS - CANTAREIRA - VILA MARIA - GUILHERME","cumulative":3035},
   {"date":"2022-11","name":"SPDM PAIS - NORTE","cumulative":3250},
   {"date":"2023-03","name":"SPDM AFILIADAS - CANTAREIRA","cumulative":4118},
+  {"date":"2023-03","name":"SPDM AFILIADAS - HOSPITAL CANTAREIRA","cumulative":4118},
   {"date":"2023-04","name":"SANTA MARCELINA - RAST 10 - 11","cumulative":4197},
-  {"date":"2023-06","name":"PRÓ-PM","cumulative":4373},
-  {"date":"2023-07","name":"SPDM AFILIADAS - HRAT HOSPITAL REGIONAL ALTO TIETE","cumulative":4427},
-  {"date":"2024-02","name":"SPDM AFILIADAS - HOSPITAL ESTADUAL DE DIADEMA","cumulative":5142},
-  {"date":"2024-03","name":"SECONCI - HOSPITAL DA MULHER","cumulative":5170},
-  {"date":"2024-03","name":"SAS SECONCI - HOSP BENEDICTO PSIQUIATRIA","cumulative":5203},
-  {"date":"2024-04","name":"SECONCI - HESAP HOSP ESTADUAL DE SAPOPEMBA - CIRURGIA","cumulative":5565},
-  {"date":"2024-04","name":"SPDM AFILIADAS - ZONA NORTE VILA MARIA - GUILHERME","cumulative":5645},
-  {"date":"2024-05","name":"SAS SECONCI - HOSP BENEDICTO - PEDIATRIA","cumulative":5780},
-  {"date":"2024-05","name":"SAS SECONCI - UPA ERMELINO - ORTOPEDIA","cumulative":5780},
-  {"date":"2024-05","name":"SPDM AFILIADAS - ZONA OESTE - BUTANTÃ","cumulative":5831},
-  {"date":"2024-05","name":"SPDM PAIS - DIADEMA","cumulative":5855},
-  {"date":"2024-05","name":"SECONCI - HOSPITAL DA MULHER","cumulative":5864},
-  {"date":"2024-06","name":"SAS SECONCI - HOSP BENEDICTO - CIRURGIA","cumulative":5901},
-  {"date":"2024-06","name":"SPDM AFILIADAS - HOSP. DE CLÍNICAS LUZIA PINHO DE MELO - EMERGÊNCIA","cumulative":5933},
-  {"date":"2024-08","name":"SAS SECONCI - UPA ERMELINO - CLÍNICA MÉDICA","cumulative":6249},
-  {"date":"2024-08","name":"MONTE AZUL - AMA PARQUE FIGUEIRA GRANDE","cumulative":6324},
-  {"date":"2024-09","name":"SPDM AFILIADAS - ZONA NORTE VILA MARIA - GUILHERME","cumulative":6468},
-  {"date":"2024-11","name":"SPDM AFILIADAS - PARELHEIROS","cumulative":6671},
-  {"date":"2025-01","name":"SPDM AFILIADAS - ZONA OESTE - BUTANTÃ","cumulative":7103},
-  {"date":"2025-01","name":"HAPVIDA - HOSPITAL SÃO BERNARDO","cumulative":6979},
-  {"date":"2025-03","name":"SANTA MARCELINA - HOSPITAL GERAL SANTA MARCELINA DO ITAIM PAULISTA","cumulative":7700},
-  {"date":"2025-05","name":"SPDM AFILIADAS - HOSP GERAL PIRAJUSSARA - EMERGÊNCIA","cumulative":7957},
-  {"date":"2025-06","name":"SANTA MARCELINA - HOSPITAL CIDADE TIRADENTES","cumulative":8047},
-  {"date":"2025-09","name":"SANTA MARCELINA - ITAQUAQUECETUBA MEDICINA DO TRABALHO","cumulative":8481},
-  {"date":"2025-10","name":"SPDM AFILIADAS - HOSP. DE CLÍNICAS LUZIA PINHO DE MELO - PSIQUIATRIA","cumulative":8661},
-  {"date":"2025-12","name":"SPDM AFILIADAS - HOSPITAL GERAL DE GUARULHOS - PRONTO SOCORRO","cumulative":8946},
-  {"date":"2025-12","name":"SPDM AFILIADAS - HOSPITAL GERAL DE GUARULHOS - ENFERMARIA","cumulative":8946},
-  {"date":"2026-02","name":"SANTA MARCELINA - HOSPITAL GERAL DE GUAIANASES MEDICINA DO TRABALHO","cumulative":9227},
-  {"date":"2026-04","name":"SPDM AFILIADAS - HRAT HOSPITAL REGIONAL ALTO TIETE","cumulative":9600}
+  {"date":"2023-06","name":"PRÓ-PM","cumulative":4374},
+  {"date":"2023-07","name":"SPDM AFILIADAS - HRAT HOSPITAL REGIONAL ALTO TIETE","cumulative":4428},
+  {"date":"2024-02","name":"SPDM AFILIADAS - HOSPITAL ESTADUAL DE DIADEMA","cumulative":5143},
+  {"date":"2024-03","name":"SECONCI - HOSPITAL DA MULHER","cumulative":5171},
+  {"date":"2024-03","name":"SAS SECONCI - HOSP BENEDICTO PSIQUIATRIA","cumulative":5204},
+  {"date":"2024-04","name":"SECONCI - HESAP HOSP ESTADUAL DE SAPOPEMBA - CIRURGIA","cumulative":5566},
+  {"date":"2024-04","name":"SPDM AFILIADAS - ZONA NORTE VILA MARIA - GUILHERME","cumulative":5646},
+  {"date":"2024-05","name":"SAS SECONCI - HOSP BENEDICTO - PEDIATRIA","cumulative":5781},
+  {"date":"2024-05","name":"SAS SECONCI - UPA ERMELINO - ORTOPEDIA","cumulative":5781},
+  {"date":"2024-05","name":"SPDM AFILIADAS - ZONA OESTE - BUTANTÃ","cumulative":5832},
+  {"date":"2024-05","name":"SPDM PAIS - DIADEMA","cumulative":5856},
+  {"date":"2024-05","name":"SECONCI - HOSPITAL DA MULHER","cumulative":5865},
+  {"date":"2024-06","name":"SAS SECONCI - HOSP BENEDICTO - CIRURGIA","cumulative":5902},
+  {"date":"2024-06","name":"SPDM AFILIADAS - HOSP. DE CLÍNICAS LUZIA PINHO DE MELO - EMERGÊNCIA","cumulative":5934},
+  {"date":"2024-08","name":"SAS SECONCI - UPA ERMELINO - CLÍNICA MÉDICA","cumulative":6250},
+  {"date":"2024-08","name":"MONTE AZUL - AMA PARQUE FIGUEIRA GRANDE","cumulative":6325},
+  {"date":"2024-09","name":"SPDM AFILIADAS - ZONA NORTE VILA MARIA - GUILHERME","cumulative":6469},
+  {"date":"2024-11","name":"SPDM AFILIADAS - PARELHEIROS","cumulative":6672},
+  {"date":"2025-01","name":"SPDM AFILIADAS - ZONA OESTE - BUTANTÃ","cumulative":7104},
+  {"date":"2025-03","name":"SANTA MARCELINA - HOSPITAL GERAL SANTA MARCELINA DO ITAIM PAULISTA","cumulative":7701},
+  {"date":"2025-05","name":"SPDM AFILIADAS - HOSP GERAL PIRAJUSSARA - EMERGÊNCIA","cumulative":7958},
+  {"date":"2025-06","name":"SANTA MARCELINA - HOSPITAL CIDADE TIRADENTES","cumulative":8048},
+  {"date":"2025-09","name":"SANTA MARCELINA - ITAQUAQUECETUBA MEDICINA DO TRABALHO","cumulative":8482},
+  {"date":"2025-10","name":"HAPVIDA - HOSPITAL SÃO BERNARDO","cumulative":8601},
+  {"date":"2025-10","name":"SPDM AFILIADAS - HOSP. DE CLÍNICAS LUZIA PINHO DE MELO - PSIQUIATRIA","cumulative":8662},
+  {"date":"2025-12","name":"SPDM AFILIADAS - HOSPITAL GERAL DE GUARULHOS - PRONTO SOCORRO","cumulative":8947},
+  {"date":"2025-12","name":"SPDM AFILIADAS - HOSPITAL GERAL DE GUARULHOS - ENFERMARIA","cumulative":8947},
+  {"date":"2026-02","name":"SANTA MARCELINA - HOSPITAL GERAL DE GUAIANASES MEDICINA DO TRABALHO","cumulative":9228},
+  {"date":"2026-04","name":"SPDM AFILIADAS - HRAT HOSPITAL REGIONAL ALTO TIETE","cumulative":9602}
 ];
 
 const GROUPS = [
